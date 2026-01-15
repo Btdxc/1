@@ -10,6 +10,7 @@ import (
 const host = "node4.anna.nssctf.cn:25939"
 
 func SendRequest(conn net.Conn, host string) error {
+
 	request := fmt.Sprintf("GET / HTTP/1.1\r\nHOST: %s\r\n\r\n", host)
 	_, err := conn.Write([]byte(request))
 	if err != nil {
@@ -20,6 +21,7 @@ func SendRequest(conn net.Conn, host string) error {
 	return nil
 }
 func GetRespond(conn net.Conn) ([]byte, error) {
+	
 	buffer := make([]byte, 4096)
 	var response []byte
 	for {
@@ -39,6 +41,7 @@ func GetRespond(conn net.Conn) ([]byte, error) {
 }
 
 func GetAnswer(r []byte) string {
+	
 	for k, _ := range r {
 		if r[k] == 'f' && r[k+1] == 'l' && r[k+2] == 'a' && r[k+3] == 'g' {
 			k += 4
@@ -55,6 +58,7 @@ func GetAnswer(r []byte) string {
 }
 
 func main() {
+	
 	conn, err := net.Dial("tcp", host)
 	if err != nil {
 		fmt.Println("无法连接:", err)
