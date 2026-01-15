@@ -11,7 +11,6 @@ const host = "node4.anna.nssctf.cn:25939"
 
 func SendRequest(conn net.Conn, host string) error {
 	request := fmt.Sprintf("GET / HTTP/1.1\r\nHOST: %s\r\n\r\n", host)
-
 	_, err := conn.Write([]byte(request))
 	if err != nil {
 		return fmt.Errorf("发送请求失败%v", err)
@@ -23,7 +22,6 @@ func SendRequest(conn net.Conn, host string) error {
 func GetRespond(conn net.Conn) ([]byte, error) {
 	buffer := make([]byte, 4096)
 	var response []byte
-
 	for {
 		// 读取数据
 		n, err := conn.Read(buffer)
@@ -37,7 +35,6 @@ func GetRespond(conn net.Conn) ([]byte, error) {
 			return nil, fmt.Errorf("读取响应失败: %v", err)
 		}
 	}
-
 	return response, nil
 }
 
@@ -53,7 +50,6 @@ func GetAnswer(r []byte) string {
 			ans = fmt.Sprintf("%s}", ans)
 			return ans
 		}
-
 	}
 	return ""
 }
